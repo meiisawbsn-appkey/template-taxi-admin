@@ -32,7 +32,7 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f0f0f0ff;
             color: var(--dark);
             overflow-x: hidden;
         }
@@ -482,7 +482,7 @@
                 </div>
             </div>
 
-            <div class="stat-card card p-6 text-white" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <div class="stat-card card p-6 text-gray-800" style="background: #f0f0f0ff; border: 1px solid #e5e7eb;">
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-sm opacity-80">Total Biaya Admin</p>

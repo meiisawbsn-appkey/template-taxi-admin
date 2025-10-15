@@ -7,67 +7,66 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
-});
+    return view('dashboard-new');
+})->name('dashboard');
 
 Route::get('/driver-registration', function () {
-    return view('driver-registration');
-});
+    return view('driver-registration-new');
+})->name('driver-registration');
 
 Route::get('/driver-registration-details', function () {
-    return view('driver-registration-details');
-});
+    return view('driver-registration-details-new');
+})->name('driver-registration-details');
 
 Route::get('/feedback', function () {
-    return view('feedback');
-});
+    return view('feedback-new');
+})->name('feedback');
 
 Route::get('/feedback-details', function () {
-    return view('feedback-details');
-});
+    return view('feedback-details-new');
+})->name('feedback-details');
 
 Route::get('/finance-order', function () {
-    return view('finance-order');
-});
+    return view('finance-order-new');
+})->name('finance-order');
 
 Route::get('/order', function () {
-    return view('order-page');
-});
+    return view('order-page-new');
+})->name('order');
 
 Route::get('/order-details', function () {
-    return view('order-page-details');
-});
+    return view('order-page-details-new');
+})->name('order-details');
 
 Route::get('/vehicle', function () {
-    return view('vehicle-page');
-});
+    return view('vehicle-page-new');
+})->name('vehicle');
 
 Route::get('/vehicle-details', function () {
-    return view('vehicle-page-details');
-});
+    return view('vehicle-page-details-new');
+})->name('vehicle-details');
 
 Route::get('/balance', function () {
-    return view('balance');
-});
+    return view('balance-new');
+})->name('balance');
 
 Route::get('/balance-details', function () {
-    return view('balance-detail');
-});
+    return view('balance-detail-new');
+})->name('balance-details');
 
 Route::get('/price-setting', function () {
-    return view('price-setting');
-});
-
+    return view('price-setting-new');
+})->name('price-setting');
 
 Route::get('/login', function () {
-    return view('login');
-});
+    return view('login-new');
+})->name('login');
 
 Route::get('/user-management', function () {
-    return view('user-management');
-});
+    return view('user-management-new');
+})->name('user-management');
 
 Route::get('/user-details', function () {
-    return view('user-details');
-});
+    return view('user-details-new');
+})->name('user-details');
 

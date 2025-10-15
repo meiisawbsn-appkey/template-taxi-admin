@@ -31,7 +31,7 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f0f0f0ff;
             color: var(--dark);
             overflow-x: hidden;
             min-height: 100vh;

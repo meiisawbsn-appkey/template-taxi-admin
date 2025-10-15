@@ -36,7 +36,7 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f0f0f0ff;
             color: var(--dark);
             overflow-x: hidden;
         }
@@ -589,7 +589,7 @@
 
         <!-- Stats Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div class="stat-card card p-6 text-white" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <div class="stat-card card p-6 text-gray-800" style="background: #f0f0f0ff; border: 1px solid #e5e7eb;">
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-sm opacity-80">Total Pengguna</p>

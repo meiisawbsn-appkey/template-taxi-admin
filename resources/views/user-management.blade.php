@@ -31,7 +31,7 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f0f0f0ff;
             color: var(--dark);
             overflow-x: hidden;
         }
@@ -330,6 +330,61 @@
             background-color: var(--primary);
         }
 
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 50;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .form-input {
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 12px 16px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+        }
+
         @media (max-width: 768px) {
             .sidebar {
                 position: fixed;
@@ -453,7 +508,7 @@
                 </button>
             </div>
 
-            <button class="btn-primary px-4 py-2 font-medium flex items-center">
+            <button id="createUserBtn" class="btn-primary px-4 py-2 font-medium flex items-center">
                 <span class="material-icons-round text-sm mr-1">add</span>
                 Buat Pengguna
             </button>
@@ -823,6 +878,56 @@
     </div>
 </div>
 
+<!-- Create User Modal -->
+<div id="createUserModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="p-6 border-b border-gray-200">
+            <div class="flex justify-between items-center">
+                <h3 class="text-2xl font-bold text-gray-800">Buat Pengguna Baru</h3>
+                <button id="closeModalBtn" class="text-gray-500 hover:text-gray-700">
+                    <span class="material-icons-round">close</span>
+                </button>
+            </div>
+        </div>
+        <form id="createUserForm" class="p-6">
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2" for="full_name">Nama Lengkap</label>
+                <input class="form-input" id="full_name" placeholder="Masukkan nama lengkap" type="text"/>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2" for="email">Alamat Email</label>
+                <input class="form-input" id="email" placeholder="Masukkan alamat email" type="email"/>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2" for="password">Kata Sandi</label>
+                <input class="form-input" id="password" placeholder="Masukkan kata sandi kuat (min 8 karakter)" type="password"/>
+                <p class="text-xs text-gray-500 mt-1">Harus mengandung setidaknya 8 karakter dengan huruf besar, huruf kecil, dan angka</p>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2" for="phone">Nomor Telepon</label>
+                <input class="form-input" id="phone" placeholder="08123456789" type="tel"/>
+                <p class="text-xs text-gray-500 mt-1">Hanya angka, minimal 10 digit (contoh: 08123456789)</p>
+            </div>
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2" for="role">Peran</label>
+                <div class="relative">
+                    <select class="form-input appearance-none" id="role">
+                        <option>Pilih peran pengguna</option>
+                        <option>Admin</option>
+                        <option>Driver</option>
+                        <option>User</option>
+                    </select>
+                    <span class="material-icons-round absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">arrow_drop_down</span>
+                </div>
+            </div>
+            <div class="flex justify-end space-x-4">
+                <button id="cancelBtn" type="button" class="px-6 py-2 rounded-lg border border-gray-300 bg-white text-gray-700 font-semibold">Batal</button>
+                <button type="submit" class="btn-primary text-white font-bold py-2 px-6 rounded-lg">Buat Pengguna</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <!-- Notification Container -->
 <div id="notification" class="notification"></div>
 
@@ -866,6 +971,79 @@
             notification.classList.remove('show');
         }, 3000);
     }
+
+    // Modal functionality
+    const createUserBtn = document.getElementById('createUserBtn');
+    const createUserModal = document.getElementById('createUserModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const createUserForm = document.getElementById('createUserForm');
+
+    // Open modal
+    createUserBtn.addEventListener('click', () => {
+        createUserModal.classList.add('active');
+    });
+
+    // Close modal functions
+    function closeModal() {
+        createUserModal.classList.remove('active');
+        createUserForm.reset();
+    }
+
+    closeModalBtn.addEventListener('click', closeModal);
+    cancelBtn.addEventListener('click', closeModal);
+
+    // Close modal when clicking outside
+    createUserModal.addEventListener('click', (event) => {
+        if (event.target === createUserModal) {
+            closeModal();
+        }
+    });
+
+    // Handle form submission
+    createUserForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // Get form values
+        const fullName = document.getElementById('full_name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const phone = document.getElementById('phone').value;
+        const role = document.getElementById('role').value;
+
+        // Validate form
+        if (!fullName || !email || !password || !phone || role === 'Pilih peran pengguna') {
+            showNotification('Mohon lengkapi semua field', 'error');
+            return;
+        }
+
+        // Validate password
+        if (password.length < 8) {
+            showNotification('Kata sandi harus memiliki minimal 8 karakter', 'error');
+            return;
+        }
+
+        // Validate phone
+        if (!/^\d{10,}$/.test(phone)) {
+            showNotification('Nomor telepon harus berupa angka dengan minimal 10 digit', 'error');
+            return;
+        }
+
+        // In a real application, you would send this data to your server
+        console.log('Creating user:', { fullName, email, password, phone, role });
+
+        // Show success message
+        showNotification('Pengguna berhasil dibuat', 'success');
+
+        // Close modal
+        closeModal();
+
+        // In a real application, you would refresh the user list or add the new user to the table
+        // For demo purposes, we'll just show a message
+        setTimeout(() => {
+            showNotification('Pengguna baru telah ditambahkan ke daftar', 'info');
+        }, 1000);
+    });
 
     // Add event listeners to view buttons
     document.addEventListener('DOMContentLoaded', function() {
